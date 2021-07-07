@@ -3,5 +3,15 @@
   "is_installed": false,
   "install_step": "install_welcome",
   "year": 1400,
-  "language": "fa"
+  "language": "fa",
+  "system_roles": [
+    {
+      "id": "0",
+      "label": "superadmin"
+    },
+    {
+      "id": "2",
+      "label": "principal"
+    }
+  ]
 }

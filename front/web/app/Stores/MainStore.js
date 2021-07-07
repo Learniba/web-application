@@ -10,11 +10,11 @@ import AuthLayout from "../Views/Layouts/AuthLayout";
 Vue.use(Vuex)
 import app_defaults from "../app-defaults.json"
 
-console.log(app_defaults);
+
 export default new Vuex.Store({
     state: {
         layout: 'loading-layout',
-        configs: app_defaults
+        configs: app_defaults,
     },
     mutations: {
         SET_LAYOUT(state, payload) {
@@ -22,6 +22,7 @@ export default new Vuex.Store({
         },
         SET_CONFIGS(state, payload) {
             state.configs = payload;
+            this.$i18n.locale=state.configs.language;
         }
     },
     getters: {
