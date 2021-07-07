@@ -4,5 +4,5 @@ front/web/app/package-lock.json
 front/web/app/yarn.lock
 
 
-front/web/public/assets
-front/web/public/assets/*
+front/web/public/app
+front/web/public/app/*

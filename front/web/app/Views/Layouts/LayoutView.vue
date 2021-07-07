@@ -14,7 +14,6 @@ export default {
   components:{LoadingLayout, AuthLayout, WizardLayout, DashboardLayout},
   computed:{
     layout(){
-      console.log(this)
       return this.$store.getters.layout
     }
   }

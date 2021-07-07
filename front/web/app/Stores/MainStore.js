@@ -8,14 +8,20 @@ import WizardLayout from "../Views/Layouts/WizardLayout";
 import AuthLayout from "../Views/Layouts/AuthLayout";
 
 Vue.use(Vuex)
+import app_defaults from "../app-defaults.json"
 
+console.log(app_defaults);
 export default new Vuex.Store({
     state: {
-        layout: 'dashboard-layout'
+        layout: 'loading-layout',
+        configs: app_defaults
     },
     mutations: {
         SET_LAYOUT(state, payload) {
             state.layout = payload
+        },
+        SET_CONFIGS(state, payload) {
+            state.configs = payload;
         }
     },
     getters: {
@@ -35,6 +41,9 @@ export default new Vuex.Store({
                     break;
             }
 
+        },
+        configs(state){
+            return state.configs;
         }
     }
 })

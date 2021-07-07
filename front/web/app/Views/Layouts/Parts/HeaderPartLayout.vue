@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import "/theme/assets/css/vendor/component-custom-switch.min.css"
+
 import LogoHeaderPartLayout from "./Header/LogoHeaderPartLayout";
 import NotificationsHeaderPartLayout from "./Header/NotificationsHeaderPartLayout";
 import UserProfileHeaderPartLayout from "./Header/UserProfileHeaderPartLayout";

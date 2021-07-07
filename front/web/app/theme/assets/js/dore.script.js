@@ -1,4 +1,4 @@
-import jQuery from "jquery"
+
 /* Dore Main Script
 
 Table of Contents

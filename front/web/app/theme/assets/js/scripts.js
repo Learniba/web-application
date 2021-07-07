@@ -1,4 +1,4 @@
-import jQuery from "jquery"
+
 /* Dore Theme Select & Initializer Script
 
 Table of Contents
@@ -129,7 +129,7 @@ function loadStyle(href, callback) {
   $(".radius-radio[data-radius='" + radius + "']").attr("checked", true);
   $("#switchDark").attr("checked", theme.indexOf("dark") > 0 ? true : false);
 
-  loadStyle("/theme/assets/css/" + theme, onStyleComplete);
+  loadStyle("/assets/css/" + theme, onStyleComplete);
   function onStyleComplete() {
     setTimeout(onStyleCompleteDelayed, 300);
   }
