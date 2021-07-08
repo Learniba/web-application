@@ -1,4 +1,16 @@
 {
+  "server": {
+    "static": true,
+    "static_server": "http://localhost:2000/v1",
+    "static_file_server": "http://localhost:2000",
+    "production_server": "http://localhost:2000",
+    "production_file_server": "http://localhost:2000",
+    "timeout": 1000,
+    "headers": {
+      "X-Custom-Header": "foobar"
+    }
+  },
+  "static_server": "localhost:2000",
   "version": "0.0.1",
   "is_installed": false,
   "install_step": "install_welcome",

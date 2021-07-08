@@ -1,0 +1,14 @@
+{
+  "/v1/*": "/v1/$1",
+  "/v1/public/*": "/$1",
+  "/v1/install/users": "/v1_install_users",
+  "/v1/install/user/:id": "/v1_install_users/:id",
+  "/v1/install/teachers": "/v1_install_teachers",
+  "/v1/install/teacher/:id": "/v1_install_teachers/:id",
+  "/v1/install/files": "/v1_install_files",
+
+
+  "/install/lastusers": "/v1/install/lastusers",
+  "/posts/:category": "/posts?category=:category",
+  "/articles\\?id=:id": "/posts/:id"
+}

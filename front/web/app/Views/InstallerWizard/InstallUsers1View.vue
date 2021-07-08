@@ -23,7 +23,7 @@
         <h5 class="mb-4">{{ $t("install.create_users_1.create_new_users") }}</h5>
         <div class="card mb-4">
           <div id="smartWizardValidation" class="sw-main sw-theme-check">
-            <InstallAnchorComponents />
+            <InstallAnchorComponents/>
             <div class="card-body">
               <p>
                 {{ $t("install.create_users_1.description") }}
@@ -40,12 +40,15 @@
                   </div>
                 </div>
                 <div class="row-box">
-                  <InstallUsers1URowComponent  v-for="user in users" :user="user"/>
+                  <InstallUsers1URowComponent v-for="user in users" :user="user"/>
                 </div>
               </div>
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
-              <button class="btn btn-secondary next-btn" type="button">{{ $t("install.next") }}</button>
+              <button v-on:click="validate()" class="btn btn-secondary next-btn" type="button">{{
+                  $t("install.submit")
+                }}
+              </button>
               <button class="btn btn-secondary finish-btn" type="submit">{{ $t("install.prev") }}</button>
             </div>
           </div>
@@ -60,37 +63,63 @@ import Vue from "vue"
 import InstallAnchorComponents from "./Components/InstallAnchorComponents";
 import InstallUsers1URowComponent from "./Components/InstallUsers1URowComponent";
 import InstallStore from "../../Stores/InstallStore";
-Vue.prototype.$installStore=InstallStore;
+import "/theme/assets/js/vendor/jquery-3.3.1.min"
+import "/theme/assets/js/vendor/bootstrap-notify.min"
+import randomInteger from 'random-int';
+
+
+import Validators from "/Views/InstallerWizard/Classes/InstallUsers1_validateForms"
+Vue.prototype.$installStore = InstallStore;
 export default {
   name: "InstallUsers1View",
   components: {InstallUsers1URowComponent, InstallAnchorComponents},
   beforeCreate() {
-    this.$store.commit("SET_LAYOUT", "wizard-layout")
+    let app = this;
+    this.$store.commit("SET_LAYOUT", "wizard-layout");
+    this.$Axios.get('/install/users').then((data) => {
+      if(Object.keys(data.data).length>0){
+        app.$installStore.commit('SET_USERS', data.data)
+      }
+    })
   },
 
   data() {
     return {
-      count:1,
-      users: this.$installStore.getters.users
+      count: 1
     };
   },
   methods: {
-
+    validate() {
+      Validators.VueApp=this;
+      if(Validators.validate()){
+        this.$installStore.getters.users.forEach((value,index)=>{
+          this.$Axios.post('/install/users',value);
+        })
+        jQuery.notify({
+          message: this.$i18n.t("install.create_users_1.alerts.users_added"),
+          type: 'success'
+        });
+        this.$router.push("/install/teachers/upload/2")
+      }
+    },
     addNew() {
-      let c=this.count++;
-      this.$installStore.commit('ADD_USER',{
-        id: c,
+      let c = this.$installStore.getters.users.length;
+
+      this.$installStore.commit('ADD_USER', {
+        id: (c + 1 + randomInteger(5000)),
         name: "",
         family: "",
         national_id: "",
         mobile: "",
         role: 2,
         synced: false
-      })
+      });
     }
   },
   computed: {
-
+    users(){
+      return this.$installStore.getters.users
+    }
   },
   created() {
 

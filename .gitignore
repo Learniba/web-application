@@ -6,3 +6,8 @@ front/web/app/yarn.lock
 
 front/web/public/app
 front/web/public/app/*
+
+back/staticServer/package-lock.json
+back/staticServer/yarn.lock
+back/staticServer/node_modules
+back/staticServer/node_modules/*

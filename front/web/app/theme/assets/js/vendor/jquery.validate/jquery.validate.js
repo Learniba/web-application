@@ -1,3 +1,4 @@
+import "/theme/assets/js/vendor/jquery-3.3.1.min"
 /*!
  * jQuery Validation Plugin v1.19.1
  *
