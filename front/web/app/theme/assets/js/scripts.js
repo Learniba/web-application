@@ -34,9 +34,9 @@ function loadStyle(href, callback) {
 
 /* 02. Theme Selector, Layout Direction And Initializer */
 (function ($,jQuery) {
-  if ($().dropzone) {
-    Dropzone.autoDiscover = false;
-  }
+  // if ($().dropzone) {
+  //   Dropzone.autoDiscover = false;
+  // }
 
   var themeColorsDom = /*html*/`
   <div class="theme-colors">

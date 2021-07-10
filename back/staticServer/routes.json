@@ -4,6 +4,7 @@
   "/v1/install/users": "/v1_install_users",
   "/v1/install/user/:id": "/v1_install_users/:id",
   "/v1/install/teachers": "/v1_install_teachers",
+  "/v1/install/teachers/upload": "/v1_install_teachers_upload",
   "/v1/install/teacher/:id": "/v1_install_teachers/:id",
   "/v1/install/files": "/v1_install_files",
 

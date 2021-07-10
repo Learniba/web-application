@@ -44,13 +44,13 @@
       "mobile": "00989353466620"
     }
   ],
+  "v1_install_teachers_upload": {},
   "v1_install_remove_user": {
     "status": "ok"
   },
   "v1_install_files": {
     "teachers_excel": "/teachers_template.xlsx"
   },
-
   "v1_configs": {
     "version": "0.0.1",
     "is_installed": false,

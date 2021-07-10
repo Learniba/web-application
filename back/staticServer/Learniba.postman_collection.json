@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "464c6757-e980-4a4e-81ce-6d2a10392ef3",
+		"name": "Learniba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Static Server",
+			"item": [
+				{
+					"name": "install",
+					"item": [
+						{
+							"name": "Step1_Users",
+							"item": [
+								{
+									"name": "installed users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/users",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get user",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/user/20",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"user",
+												"20"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add user",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n        \"id\": 27,\n        \"mobile\": \"09353466623\",\n        \"name\": \"فرشید\",\n        \"family\": \"مهاجر\",\n        \"national_id\": \"0011695791\",\n        \"role\":2,\n        \"synced\": true\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{static_url_1}}/install/users",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete User",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/user/20",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"user",
+												"20"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Step2_Teachers",
+							"item": [
+								{
+									"name": "installed teachers",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/teachers",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"teachers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get teacher",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/teacher/2",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"teacher",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add teacher",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n        \"id\": 27,\n        \"mobile\": \"09353466623\",\n        \"name\": \"فرشید\",\n        \"family\": \"مهاجر\",\n        \"national_id\": \"0011695791\",\n        \"synced\": true\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{static_url_1}}/install/teachers",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"teachers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Teacher",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{static_url_1}}/install/teacher/2",
+											"host": [
+												"{{static_url_1}}"
+											],
+											"path": [
+												"install",
+												"teacher",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Install Template Files",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{static_url_1}}/install/files",
+									"host": [
+										"{{static_url_1}}"
+									],
+									"path": [
+										"install",
+										"files"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "static_url_1",
+			"value": "localhost:2000/v1"
+		},
+		{
+			"key": "static_url",
+			"value": "localhost:2000"
+		}
+	]
+}
