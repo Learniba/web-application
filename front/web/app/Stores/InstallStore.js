@@ -21,9 +21,17 @@ export default new Vuex.Store({
             },
 
         ],
-        templateFiles:{}
+        templateFiles:{},
+        enable_next_button:false,
+        count:0
     },
     mutations: {
+        ENABLE_NEXT_BUTTON(state,status){
+          state.enable_next_button=status;
+        },
+        SET_COUNT(state,count){
+            state.count=count;
+        },
         SET_USERS(state, payload) {
             state.users = payload;
         },
@@ -39,6 +47,12 @@ export default new Vuex.Store({
         }
     },
     getters: {
+        count(state){
+            return state.count;
+        },
+        enable_next_button(state){
+          return state.enable_next_button;
+        },
         users(state){
             return state.users;
         },

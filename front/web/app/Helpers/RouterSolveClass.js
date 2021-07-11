@@ -14,7 +14,7 @@ export default new class {
 
         routs = {
             install: () => {
-                console.log(this);
+                // console.log(this);
                 if (!this.is.installed()) {
                     let InstallLoaded = false;
                     switch (this.vueApp.$router.currentRoute.name) {

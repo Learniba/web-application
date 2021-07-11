@@ -5,9 +5,9 @@
     "static_file_server": "http://localhost:2000",
     "production_server": "http://localhost:2000",
     "production_file_server": "http://localhost:2000",
-    "timeout": 1000,
+    "timeout": 3000,
     "headers": {
-      "X-Custom-Header": "foobar"
+      "X-Custom-Header": "Learniba"
     }
   },
   "static_server": "localhost:2000",

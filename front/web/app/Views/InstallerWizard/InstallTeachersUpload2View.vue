@@ -119,7 +119,7 @@ export default {
       dropzoneOptions: {
         url: this.$store.getters.configs.server.production_server + '/v1/install/teachers/upload',
         // thumbnailWidth: 150,
-        maxFilesize: 0.5,
+        maxFilesize: 4000,
         acceptFiles:"application/vnd.ms-excel",
         // init: function () {
         //   this.on("success", function (file, responseText) {

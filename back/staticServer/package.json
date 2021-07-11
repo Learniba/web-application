@@ -1,15 +1,18 @@
 {
   "name": "learniba_static_server",
   "version": "0.0.1",
+  "type": "module",
   "description": "this server is for test front app but it is not connected to any database or apps,it is a macket",
   "main": "index.js",
   "scripts": {
-    "start": "json-server --watch  server.json --routes routes.json --port 2000 ",
+    "start": "nodemon --experimental-json-modules index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Learniba TM",
   "license": "ISC",
   "dependencies": {
-    "json-server": "^0.16.3"
+    "json-server": "^0.16.3",
+    "nodemon": "latest",
+    "chance": "^1.1.7"
   }
 }

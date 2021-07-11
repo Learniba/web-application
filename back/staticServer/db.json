@@ -28,22 +28,7 @@
       "synced": false
     }
   ],
-  "v1_install_teachers": [
-    {
-      "id": 1,
-      "name": "معلم",
-      "family": "بهترزاده",
-      "national_id": "0011695791",
-      "mobile": "00989353466620"
-    },
-    {
-      "id": 2,
-      "name": "دبیر",
-      "family": "ریاضی زاده",
-      "national_id": "0011695791",
-      "mobile": "00989353466620"
-    }
-  ],
+
   "v1_install_teachers_upload": {},
   "v1_install_remove_user": {
     "status": "ok"
