@@ -36,9 +36,10 @@ const routes=[
     { path: '/install/teachers/validate/2', component: InstallTeachersValidate2View ,name: 'install_teachers_validate_2'},
     { path: '/install/teachers/confirm/2', component: InstallTeachersConfirm2View ,name: 'install_teachers_confirm_2'},
     { path: '/install/classes/form/3', component: InstallClassesForm3View ,name: 'install_classes_form_3'},
-    { path: '/install/students/upload/4', component: InstallStudentsUpload4View ,name: 'install_students_upload_4'},
-    { path: '/install/students/validate/4', component: InstallStudentsValidate3View ,name: 'install_students_validate_4'},
-    { path: '/install/students/confirm/4', component: InstallStudentsConfirm4View ,name: 'install_student_validate_4'},
+
+    { path: '/install/students/upload/:classid/4', component: InstallStudentsUpload4View ,name: 'install_students_upload_4'},
+    { path: '/install/students/validate/:classid/4', component: InstallStudentsValidate3View ,name: 'install_students_validate_4'},
+    { path: '/install/students/confirm/:classid/4', component: InstallStudentsConfirm4View ,name: 'install_student_validate_4'},
     { path: '/install/schedule_class/5', component: InstallScheduleClass5View ,name: 'install_schedule_class_5'},
     { path: '/install/welcome', component: InstallWelcomeView ,name: 'install_welcome'},
     { path: '/install/finish', component: InstallFinishView ,name: 'install_finish'},

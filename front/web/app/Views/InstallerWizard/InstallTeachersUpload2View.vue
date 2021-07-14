@@ -59,11 +59,11 @@
               </div>
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
-              <button v-if="enable_next_button" v-on:click="validate()" class="btn btn-secondary next-btn" type="button">{{
+              <button v-if="enable_next_button" v-on:click="validate()" class="btn btn-success next-btn" type="button">{{
                   $t("install.next")
                 }}
               </button>
-              <button class="btn btn-secondary finish-btn" type="submit">{{ $t("install.prev") }}</button>
+              <button class="btn btn-secondary finish-btn" type="submit" v-on:click="prev()">{{ $t("install.prev") }}</button>
             </div>
           </div>
         </div>
@@ -132,6 +132,9 @@ export default {
     }
   },
   methods: {
+    prev(){
+      this.$router.push('/install/users/1');
+    },
     onFileUploaded(){
 
       this.enable_next_button=true;
@@ -168,5 +171,8 @@ export default {
   float: right;
   width: 100%;
   margin-bottom: 20px;
+}
+.btn-success{
+  margin-left:20px
 }
 </style>

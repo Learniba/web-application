@@ -10,6 +10,21 @@
   "/v1/install/teachers/upload": "/v1_install_teachers_upload",
   "/v1/install/teacher/:id": "/v1_install_teachers/:id",
   "/v1/install/files": "/v1_install_files",
+  "/v1/install/classes": "/v1_install_classes",
+  "/v1/install/class/:id": "/v1_install_classes/:id",
+
+
+  "/v1/install/students": "/v1_install_students",
+  "/v1/install/student/edit": "/v1_install_student_edit",
+  "/v1/install/students/errors": "/v1_install_students_has_error",
+  "/v1/install/students/validate/row": "/v1_install_students_validate_row",
+  "/v1/install/students/upload": "/v1_install_students_upload",
+  "/v1/install/student/:id": "/v1_install_students/:id",
+
+
+  "/v1/g/levels": "/levels",
+  "/v1/g/orientations": "/orientations",
+  "/v1/g/orientation/:level": "/orientations?level=:level",
 
 
 

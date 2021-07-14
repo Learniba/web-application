@@ -44,7 +44,7 @@
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
               <button v-if="this.$InstallStore.getters.enable_next_button" v-on:click="validate()"
-                      class="btn btn-secondary next-btn" type="button">{{
+                      class="btn btn-success next-btn" type="button">{{
                   $t("install.next")
                 }}
               </button>
@@ -134,5 +134,8 @@ export default {
 
 #smartWizardValidation .card-body > div {
   height: auto;
+}
+.btn-success{
+  margin-left:20px
 }
 </style>

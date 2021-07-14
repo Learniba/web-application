@@ -51,6 +51,57 @@
       "alerts": {
         "data is empty, go back and fill data": "شما همه ی اطلاعات را حذف کردید, لطفا به عقب برگشته و مجددا اطلاعات را بارگذاری نمایید."
       }
+    },
+    "create_classes_3": {
+      "title": "ایجاد کلاس ها",
+      "class_header": "افزودن کلاس جدید",
+      "submitted students": "دانش آموزان کلاس ثبت شده اند",
+      "students of class are not submitted": "هیچ دانش آموزی برای کلاس ثبت نشده است",
+      "validated students": "اطلاعات دانش آموزان بدون ایراد است",
+      "student data has error": "اطلاعات دانش آموزان دارای اشکالاتی است",
+      "times are not scheduled": "برنامه ی کلاسی تنظیم نشده است",
+      "scheduled times": "برنامه ی کلاسی تنظیم شده است",
+      "description": "در این مرحله کلاس های آموزشگاه خود را در سیستم ثبت فرمایید. توجه داشته باشید برای هر کلاس در مراحل بعد باید تعدادی دانش آموز و برنامه ی درسی ثبت نمایید.",
+      "next step descriptions": "هر یک از کلید های ذیل مربوط به یکی از کلاس هایی است که ثبت نموده اید. لطفا روی آنها کلیک کنید و اطلاعات خواسته شده را برای همه ی کلاس ها تکمیل نمایید.",
+      "form": {
+        "name": "نام کلاس",
+        "level": "مقطع تحصیلی",
+        "orientation": "رشته"
+      },
+      "alerts": {
+        "class_deleted_from_server": "کلاس با موفقیت از سرور حذف شد",
+        "cannot_delete_single_row": "متاسفانه خطایی در روند حذف کلاس بوجود آمد, لطفا مجددا بعدا امتحان نمایید",
+        "class_deleted": "کلاس با موفقیت حذف شد",
+        "classes_added": "کلاس ها با موفقیت ثبت شدند"
+      }
+    },
+    "create_students_upload_2": {
+      "upload array": "منطقه ی رها کردن فایل",
+      "download": "دانلود فایل نمونه",
+      "create_new_student": "ثبت دانش اموزان کلاس {class}",
+      "description": "در این مرحله دانش آموزان کلاس {class} را ثبت خواهید نمود.",
+      "download file and after edit,upload again": "لطفا فایل نمونه را دانلود نمایید و پس از پر کردن آن با اطلاعات دانش آموزان و والیدینشان مجددا بارگذاری نمایید.",
+      "upload filled excel here": "لطفا فایل اکسل پر شده با اطلاعات دانش آموزان و والدین را در اینجا بارگذاری نمایید."
+    },
+    "create_students_validate_4": {
+      "form fields": {
+        "id": "شناسه",
+        "name": "نام",
+        "family": "نام خانوادگی",
+        "mobile": "شماره همراه",
+        "national_id": "کذ ملی",
+        "birthday": "تاریخ تولد",
+        "parent_1_name": "نام پدر",
+        "parent_1_family": "نام خانوادگی پدر",
+        "parent_1_national_id": "کد ملی پدر",
+        "parent_1_mobile": "شماره همراه پدر",
+        "parent_1_birthday": "تاریخ تولد پدر",
+        "parent_2_name": "نام مادر",
+        "parent_2_family": "نام خانوادگی مادر",
+        "parent_2_national_id": "کدملی مادر",
+        "parent_2_mobile": "شماره همراه مادر",
+        "parent_2_birthday": "تاریخ تولد مادر"
+      }
     }
   },
   "system_roles": {

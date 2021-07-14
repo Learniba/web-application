@@ -15,7 +15,7 @@
 
           <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
             <router-link to="/install/users/1" v-slot="{href}">
-              <a :href="href" class="btn btn-secondary prev-btn" type="button">آغاز نصب</a>
+              <a :href="href" class="btn btn-success prev-btn" type="button">آغاز نصب</a>
             </router-link>
 
           </div>
@@ -27,11 +27,17 @@
 </template>
 
 <script>
+
+
+
+
+
 export default {
   name: "InstallWelcomeView",
   beforeCreate() {
-    this.$store.commit('SET_LAYOUT', 'wizard-layout')
+    this.$store.commit("SET_LAYOUT","wizard-layout");
   }
+
 }
 </script>
 

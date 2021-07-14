@@ -2,7 +2,7 @@
   <div class="validate-box">
 
     <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
-      <table id="datatableRows" class="data-table responsive nowrap">
+      <table id="datatableRows" class="data-table table-responsive nowrap">
         <thead>
         <tr>
           <th v-for="head in headers">{{ head }}</th>
@@ -161,5 +161,15 @@ td p{
   border: solid 1px;
   padding: 5px;
   border-color: transparent;
+}
+.form-control {
+  width: 98px;
+}
+.list-item-heading {
+  width: 115px;
+  text-align: center;
+}
+th {
+  text-align: center !important;
 }
 </style>

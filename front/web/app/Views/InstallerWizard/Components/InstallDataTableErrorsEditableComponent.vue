@@ -1,7 +1,7 @@
 <template>
 
   <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
-    <table id="datatableRows" class="data-table responsive nowrap">
+    <table id="datatableRows" class="data-table table-responsive nowrap">
       <thead>
       <tr>
         <th v-for="head in headers">{{ head }}</th>
@@ -163,5 +163,15 @@ export default {
 .ltr {
   direction: ltr !important;
   text-align: left
+}
+.form-control {
+  width: 98px;
+}
+.list-item-heading {
+  width: 115px;
+  text-align: center;
+}
+th {
+  text-align: center !important;
 }
 </style>

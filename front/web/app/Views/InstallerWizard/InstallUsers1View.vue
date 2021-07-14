@@ -45,11 +45,11 @@
               </div>
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
-              <button v-on:click="validate()" class="btn btn-secondary next-btn" type="button">{{
+              <button v-on:click="validate()" class="btn btn-success next-btn" type="button">{{
                   $t("install.submit")
                 }}
               </button>
-              <button class="btn btn-secondary finish-btn" type="submit">{{ $t("install.prev") }}</button>
+              <button class="btn btn-secondary finish-btn"  v-on:click="prev()">{{ $t("install.prev") }}</button>
             </div>
           </div>
         </div>
@@ -89,6 +89,9 @@ export default {
     };
   },
   methods: {
+    prev(){
+      this.$router.push('/install/welcome');
+    },
     validate() {
       Validators.VueApp=this;
       if(Validators.validate()){
@@ -160,5 +163,7 @@ export default {
   float: right;
   margin-bottom: 20px;
 }
-
+.btn-success{
+  margin-left:20px
+}
 </style>
