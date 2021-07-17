@@ -40,7 +40,7 @@ const routes=[
     { path: '/install/students/upload/:classid/4', component: InstallStudentsUpload4View ,name: 'install_students_upload_4'},
     { path: '/install/students/validate/:classid/4', component: InstallStudentsValidate3View ,name: 'install_students_validate_4'},
     { path: '/install/students/confirm/:classid/4', component: InstallStudentsConfirm4View ,name: 'install_student_validate_4'},
-    { path: '/install/schedule_class/5', component: InstallScheduleClass5View ,name: 'install_schedule_class_5'},
+    { path: '/install/schedule_class/:classid/5', component: InstallScheduleClass5View ,name: 'install_schedule_class_5'},
     { path: '/install/welcome', component: InstallWelcomeView ,name: 'install_welcome'},
     { path: '/install/finish', component: InstallFinishView ,name: 'install_finish'},
 ];

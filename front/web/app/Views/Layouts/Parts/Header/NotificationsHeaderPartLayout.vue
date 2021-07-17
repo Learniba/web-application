@@ -8,7 +8,7 @@
       <div class="scroll">
         <div class="d-flex flex-row mb-3 pb-3 border-bottom">
           <a href="#">
-            <img src="img/profiles/l-2.jpg" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+            <img src="#" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
           </a>
           <div class="pl-3">
             <a href="#">
@@ -19,7 +19,7 @@
         </div>
         <div class="d-flex flex-row mb-3 pb-3 border-bottom">
           <a href="#">
-            <img src="img/notifications/1.jpg" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+            <img src="#" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
           </a>
           <div class="pl-3">
             <a href="#">
@@ -30,7 +30,7 @@
         </div>
         <div class="d-flex flex-row mb-3 pb-3 border-bottom">
           <a href="#">
-            <img src="img/notifications/2.jpg" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+            <img src="#" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
           </a>
           <div class="pl-3">
             <a href="#">
@@ -41,7 +41,7 @@
         </div>
         <div class="d-flex flex-row mb-3 pb-3 ">
           <a href="#">
-            <img src="img/notifications/3.jpg" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+            <img src="#" alt="Notification Image" class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
           </a>
           <div class="pl-3">
             <a href="#">

@@ -63,14 +63,14 @@ import {success, warning, danger} from "../../../Helpers/Functions";
 export default {
 
   name: "InstallClassFormRowComponent",
-  props: ["cls","sorted_orientations"],
+  props: ["cls"],
   data() {
     return {
       orientations: []
     }
   },
   computed: {
-
+    sorted_orientations(){console.log('co');return this.$installStore.getters.sorted_orientations;},
     levels() {
       return this.$installStore.getters.levels
     },
@@ -79,8 +79,9 @@ export default {
         return this.cls.name;
       },
       set(v) {
+        this.$emit('changed');
         this.cls.name = v;
-        this.$installStore.commit('UPDATE_ClASS', this.cls)
+        this.$installStore.commit('UPDATE_CLASS', this.cls)
       }
     },
     level: {
@@ -88,6 +89,7 @@ export default {
         return this.cls.level;
       },
       set(v) {
+        this.$emit('changed');
         this.cls.level = v;
         this.$installStore.commit('UPDATE_CLASS', this.cls)
       }
@@ -97,28 +99,26 @@ export default {
         return this.cls.orientation;
       },
       set(v) {
+        this.$emit('changed');
         this.cls.orientation = v;
         this.$installStore.commit('UPDATE_CLASS', this.cls)
       }
     }
 
   },
-  watch: {
-    sorted_orientations: function(newVal, oldVal) { // watch it
-      console.log("level: " +this.level)
-      if (this.level){
 
-        if(typeof newVal[this.level]!=="undefined"){
-          this.orientations=newVal[this.level];
-        }
-      }
+  watch: {
+    sorted_orientations:{
+      handler(n, o) {
+        this.get_orientations();
+      },
+      deep: true
     }
   },
   methods: {
     get_orientations(){
-      console.log("level: " +this.level)
+      console.log('changed')
       if (this.level){
-
         if(typeof this.sorted_orientations[this.level]!=="undefined"){
           this.orientations=this.sorted_orientations[this.level];
         }

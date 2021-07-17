@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div class="row-box">
-                  <InstallUsers1URowComponent v-for="user in users" :user="user"/>
+                  <InstallUsers1URowComponent v-bind:key="user.id" v-for="(user,index) in users" :user="user"/>
                 </div>
               </div>
             </div>

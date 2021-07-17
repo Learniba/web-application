@@ -3,7 +3,7 @@
     <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="name">فاطمه کاظمی</span>
       <span>
-                        <img alt="Profile Picture" src="img/profiles/l-1.jpg" />
+                        <img alt="Profile Picture" src="#" />
                     </span>
     </button>
 

@@ -1,5 +1,13 @@
-export default (server, c) => {
 
+export default (server, c) => {
+    let UniqId=(arr)=>{
+        let id=c.integer({min:1,max:10000});
+        if(typeof arr.find(item=>item.id===id)!=="undefined"){
+            return UniqId(arr);
+        }else{
+            return id;
+        }
+    };
     server.post('/v1_install_teachers_validate_row', (req, res) => {
 
         let status = c.bool();
@@ -362,11 +370,42 @@ export default (server, c) => {
          *  'message':"some message if status = error"
          * ]
          */
-        let status=c.bool();
-        res.status(!status?c.pickone([200,404,500]):200).jsonp({
-            status:status?"ok":"error",
-            message:status?"":"خطایی در ثبت کلاس ها بوجود آمدولطفا مجددا امتحان کنید."
+        let status = c.bool();
+        res.status(!status ? c.pickone([200, 404, 500]) : 200).jsonp({
+            status: status ? "ok" : "error",
+            message: status ? "" : "خطایی در ثبت کلاس ها بوجود آمدولطفا مجددا امتحان کنید."
         })
     })
     // </ list of students >
+
+
+    server.get('/v1_class_schedules', (req, res) => {
+
+        let min = c.integer({min: 1, max: 10});
+        let max = c.integer({min: min, max: 500});
+        let i = 0;
+        let arr = [];
+
+        for (i; i < max; i++) {
+            let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
+            let month=c.integer({min:1,max:12});
+            let day=c.integer({min:1,max:29});
+
+            let start = '2021-'+(month<10?'0':'')+month+'-'+(day<10?'0':'')+day+'T';
+            let hour = c.integer({min: 0, max: 20});
+            let timeStart =(hour<10?'0':'')+ hour + ':01:01';
+            let timeEnd = ((hour+3)<10?'0':'')+(hour + 3) + ':01:01';
+
+
+
+
+            arr.push({
+                id: UniqId(arr),
+                title: c.name(),
+                start: start + timeStart,
+                end: start + timeEnd
+            });
+        }
+        res.status(200).jsonp(arr)
+    })
 }

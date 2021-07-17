@@ -41,7 +41,7 @@
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
               <button v-if="this.$InstallStore.getters.enable_next_button" v-on:click="validate()"
-                      class="btn btn-secondary next-btn" type="button">{{
+                      class="btn btn-success next-btn" type="button">{{
                   $t("install.next")
                 }}
               </button>
@@ -66,13 +66,13 @@ export default {
   components: {InstallAnchorComponents, InstallDataTableConfirmComponent},
   methods: {
     validate() {
-      this.$router.push('/install/classes/form/3');
+      this.$router.push('/install/schedule_class/' + this.$route.params.classid + '/5');
     },
     last() {
       if (this.$installStore.getters.count === 0) {
-        this.$router.push('/install/students/upload/2');
+        this.$router.push('/install/students/upload/' + this.$route.params.classid + '/2');
       } else {
-        this.$router.push('/install/students/validate/2');
+        this.$router.push('/install/students/validate/' + this.$route.params.classid + '/2');
       }
     }
   },
@@ -126,5 +126,9 @@ export default {
 
 #smartWizardValidation .card-body > div {
   height: auto;
+}
+
+.btn-success {
+  margin-left: 20px
 }
 </style>

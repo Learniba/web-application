@@ -18,12 +18,11 @@ export default {
 
   created() {
     jQuery('body').addClass('show-spinner');
-    console.log(jQuery('body'))
-    console.log(jQuery('body').attr('class'));
+
 
   },
   destroyed() {
-    console.log('depre')
+
     jQuery('body').removeClass('show-spinner');
   },
 }

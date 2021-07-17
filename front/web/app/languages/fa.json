@@ -89,7 +89,7 @@
         "name": "نام",
         "family": "نام خانوادگی",
         "mobile": "شماره همراه",
-        "national_id": "کذ ملی",
+        "national_id": "کد ملی",
         "birthday": "تاریخ تولد",
         "parent_1_name": "نام پدر",
         "parent_1_family": "نام خانوادگی پدر",
@@ -107,5 +107,21 @@
   "system_roles": {
     "superadmin": "مدیر ارشد",
     "principal": "معاون"
+  },
+  "fullcalendar": {
+    "default_modal_title": "افزودن رویداد",
+    "cancel button": "لغو",
+    "submit": "ارسال و ثبت"
+  },
+  "components": {
+    "modal": {
+      "close btn": "بستن",
+      "submit btn": "ثبت اطلاعات"
+    },
+    "form": {
+      "selectbox": {
+        "default option label": "لطفا انتخاب کنید"
+      }
+    }
   }
 }

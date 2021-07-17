@@ -40,13 +40,14 @@
                   </div>
                 </div>
                 <div class="row-box">
-                  <InstallClassFormRowComponent :sorted_orientations="sorted_orientations" v-model="has_not_new_row" v-for="item in classes" :cls="item"/>
+                  <InstallClassFormRowComponent @changed="data_changed()"
+                                                 v-bind:key="item.id" v-for="(item,index) in classes" :cls="item"/>
                 </div>
               </div>
 
 
             </div>
-            <div class="card-saved-classes" v-if="saved_classes.length>0">
+            <div class="card-saved-classes" v-if="saved_classes.length>0 && has_not_new_row">
               <div class="container">
                 <div class="col-md-12">
                   <p>
@@ -137,16 +138,20 @@ export default {
   name: "InstallClassesForm2View",
   components: {InstallClassFormRowComponent, InstallAnchorComponents},
 
-  beforeCreate() {
 
-  },
   computed: {
-    classes() {
-      return this.$installStore.getters.classes
+    classes: {
+      set(v) {
+        return this.$installStore.commit('SET_CLASSES', v)
+      },
+      get() {
+        return this.$installStore.getters.classes
+      }
     },
     levels() {
       return this.$installStore.getters.levels
     },
+
     orientation() {
       return this.$installStore.getters.orientations
     },
@@ -157,23 +162,28 @@ export default {
   },
   data() {
     return {
-      sorted_orientations:[],
-      has_not_new_row: false,
+      has_not_new_row: true,
       enabled_next_btn: false,
+
       count: 1
     };
   },
   methods: {
-    sort_orientations(arr){
-      arr.forEach((value,index)=>{
-        if (typeof this.sorted_orientations[value.level]==="undefined"){
-          this.sorted_orientations[value.level]=[];
+    data_changed() {
+      this.has_not_new_row = false;
+
+    },
+    sort_orientations(arr) {
+      let out=[];
+      arr.forEach((value, index) => {
+        if (typeof out[value.level] === "undefined") {
+          out[value.level] = [];
         }
-        this.sorted_orientations[value.level].push(value);
-      })
+        out[value.level].push(value);
+      });
+      this.$installStore.commit('SET_SORTED_ORIENTATION',out);
     },
     get_orientations() {
-
       this.$Axios.get('/g/orientations').then((response) => {
         this.$installStore.commit('SET_ORIENTATIONS', response.data);
         this.sort_orientations(response.data)
@@ -191,6 +201,7 @@ export default {
           this.classes = data.data;
           this.$installStore.commit('SET_SAVED_CLASSES', data.data);
           this.has_not_new_row = true;
+
         }
       })
     },
@@ -230,14 +241,10 @@ export default {
         if (response.data.status === "ok") {
           success(this, "install.create_classes_3.alerts.classes_added");
 
-          // < transfer saved classes in an array  >
-          {
-            this.$installStore.commit('SET_SAVED_CLASSES',this.classes);
-          }
-          // </ transfer saved classes in an array >
+          this.created();
 
 
-          this.has_not_new_row = true;
+          // this.has_not_new_row = true;
         } else {
           warning(this, response.data.message, false);
           this.has_not_new_row = false;
@@ -263,15 +270,19 @@ export default {
         })
       }
       return has_error;
+    },
+    created(){
+      this.has_not_new_row = true;
+      this.$store.commit("SET_LAYOUT", "loading-layout");
+      this.get_orientations();
+      this.get_levels();
+      this.get_saved_classes();
+      this.$store.commit("SET_LAYOUT", "wizard-layout");
     }
   },
 
   created() {
-    this.$store.commit("SET_LAYOUT", "loading-layout");
-    this.get_orientations();
-    this.get_levels();
-    this.get_saved_classes();
-    this.$store.commit("SET_LAYOUT", "wizard-layout");
+    this.created();
   }
 }
 </script>
@@ -347,9 +358,10 @@ export default {
 .class_ul {
   list-style: none;
 }
-.card-saved-classes{
+
+.card-saved-classes {
   display: block;
-  float:right;
-  width:100%
+  float: right;
+  width: 100%
 }
 </style>

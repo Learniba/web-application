@@ -45,7 +45,7 @@
             </div>
             <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
               <button v-if="this.$InstallStore.getters.enable_next_button" v-on:click="validate()"
-                      class="btn btn-secondary next-btn" type="button">{{
+                      class="btn btn-success next-btn" type="button">{{
                   $t("install.next")
                 }}
               </button>
@@ -114,7 +114,7 @@ export default {
     last() {
       this.$Axios.delete('/install/students').then((res) => {
         if (res.data.status === "ok") {
-          this.$router.push('/install/students/upload/2');
+          this.$router.push('/install/students/upload/'+this.$route.params.classid+'/4');
         } else {
           jQuery.notify({
             message: res.data.message,
@@ -149,5 +149,8 @@ export default {
 
 #smartWizardValidation .card-body > div {
   height: auto;
+}
+.btn-success {
+  margin-left: 20px
 }
 </style>

@@ -14,9 +14,11 @@ import app_defaults from "../app-defaults.json"
 export default new Vuex.Store({
     state: {
         layout: 'loading-layout',
-        configs: app_defaults,
+        configs: app_defaults
     },
     mutations: {
+
+
         SET_LAYOUT(state, payload) {
             state.layout = payload
         },

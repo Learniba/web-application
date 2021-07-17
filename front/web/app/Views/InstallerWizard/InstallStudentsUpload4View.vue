@@ -48,7 +48,7 @@
                                 v-on:vdropzone-success="onFileUploaded"/>
                 </div>
                 <div v-if="has_student" class="card dow">
-                  <h3>قبل تر اطلاعات برخی دبیران را ثبت نموده اید</h3>
+                  <h3>قبل تر اطلاعات برخی از دانش آموزان را ثبت نموده اید</h3>
                   <div class="col-md-12">
                     <button v-on:click="viewData()" class="btn btn-secondary next-btn" type="button">{{
                         $t("install.view submitted data")
@@ -86,33 +86,11 @@ Vue.prototype.$InstallStore = InstallStore;
 export default {
   name: "InstallStudentUpload4View",
   components: {InstallAnchorComponents, vueDropzone: vue2Dropzone},
-  beforeCreate() {
-    let app = this;
+  created() {
     this.$store.commit('SET_LAYOUT', "wizard-layout");
-    // < check students excel template file address  >
-    if (Object.keys(this.$installStore.getters.templateFiles).length === 0) {
-      this.$Axios.get('/install/files').then((data) => {
-        console.log(data.data);
-        app.$installStore.commit("UPDATE_TEMPLATE_FILES", data.data);
-      })
-    }
-    // </ check students excel template file address >
-
-
-    // < get class name  >
-    this.$Axios.get('/install/class/' + this.$route.params.classid).then((response) => {
-      this.class_name = response.data.name;
-    })
-    // </ get class name >
-
-    // < check if system has some students  >
-    app.$Axios.get('/install/students').then((data) => {
-      app.has_student = data.data.length > 0;
-      if (data.data.length > 0) {
-        app.enable_next_button = true;
-      }
-    })
-    // </ check if system has some students >
+    this.get_static_file_locs();
+    this.get_class();
+    this.get_students();
   },
   computed: {
 
@@ -142,6 +120,29 @@ export default {
     }
   },
   methods: {
+    get_static_file_locs(){
+      if (Object.keys(this.$installStore.getters.templateFiles).length === 0) {
+        this.$Axios.get('/install/files').then((data) => {
+          this.$installStore.commit("UPDATE_TEMPLATE_FILES", data.data);
+        })
+      }
+    },
+    get_students(){
+      this.$Axios.get('/install/students').then((data) => {
+        this.has_student = data.data.count > 0;
+
+        if (data.data.length > 0) {
+          this.enable_next_button = true;
+        }
+      })
+    },
+    get_class(){
+      this.$Axios.get('/install/class/' + this.$route.params.classid).then((response) => {
+        this.class_name = response.data.name;
+      })
+    },
+
+
     prev() {
       this.$router.push('/install/classes/form/3');
     },
@@ -150,16 +151,16 @@ export default {
       this.enable_next_button = true;
     },
     viewData() {
-      this.$router.push('/install/students/validate/' + this.$route.params.classid + '/2');
+      this.$router.push('/install/students/validate/' + this.$route.params.classid + '/4');
     },
     validate() {
-      this.$router.push('/install/students/validate/' + this.$route.params.classid + '/2');
+      this.$router.push('/install/students/validate/' + this.$route.params.classid + '/4');
     },
     download() {
       const FileDownload = require('js-file-download');
       let app = this;
       let url = (app.$store.getters.configs.server.static ? app.$store.getters.configs.server.static_file_server : app.$store.getters.configs.server.production_server) + app.$installStore.getters.templateFiles.students_excel;
-      console.log(url)
+
       this.$Axios({
         url: url,
         method: 'GET',

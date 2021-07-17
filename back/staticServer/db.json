@@ -40,7 +40,7 @@
       "id": 2,
       "name": "دوم پسته",
       "level": 2,
-      "orientation": 1,
+      "orientation": 2,
       "synced": true,
       "has_student": false,
       "students_validated": false,
