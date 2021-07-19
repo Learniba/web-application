@@ -1,0 +1,146 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.joiSchema = void 0;
+const types = {
+    array: processArray,
+    bigint: processInteger,
+    bigserial: processInteger,
+    bit: null,
+    "bit varying": null,
+    boolean: processBoolean,
+    box: null,
+    bytea: null,
+    character: processString,
+    "character varying": processString,
+    cidr: processIP,
+    circle: null,
+    date: processDate,
+    "double precision": processNumeric,
+    hstore: null,
+    inet: processIP,
+    integer: processInteger,
+    interval: null,
+    json: processJSON,
+    jsonb: processJSON,
+    line: null,
+    lseg: null,
+    macaddr: null,
+    money: processNumeric,
+    numeric: processNumeric,
+    path: null,
+    point: null,
+    polygon: null,
+    real: processNumeric,
+    smallint: processInteger,
+    smallserial: processInteger,
+    serial: processInteger,
+    text: processText,
+    "time without time zone": processTime,
+    "time with time zone": null,
+    "timestamp without time zone": processTimestamp,
+    "timestamp with time zone": null,
+    tsquery: null,
+    tsvector: null,
+    txid_snapshot: null,
+    uuid: processUUID,
+    xml: null,
+    "user-defined": null,
+};
+// Regex Source:: https://rgxdb.com/r/2LE6429J
+const timeRegex = "^(?:(?:(?:0?[1-9]|1[0-2])(?::|.)[0-5]d(?:(?::|.)[0-5]d)? ?[aApP][mM])|(?:(?:0?d|1d|2[0-3])(?::|.)[0-5]d(?:(?::|.)[0-5]d)?))$";
+// const formats = {
+//     macaddr: '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$',
+//     bit: '^[10]*$',
+//     uuid: '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
+// };
+const skipKey = ["xcreated_at", "xupdated_at"];
+/**
+ * Returns Joi schema with column names as keys, string representation of Joi schema as values for given table.
+ * @param   {Object}    table                                 - pg-structure table object.
+ * @param   {Object}    [options]                             - Options
+ * @param   {string[]}  [options.exclude]                     - Column names to exclude
+ * @param   {boolean}   [options.jsonAsString=false]          - Whether json and jsonb types are expected as a string
+ * @param   {boolean}   [options.defaultValueOptional=false]  - Whether to make columns with default values optional
+ * @returns {Object}                                          - Joi schema with column names as keys, string representation of Joi schema as values. i.e. { name: 'Joi.string()' }
+ */
+function joiSchema(table, { exclude = [], jsonAsString, defaultValueOptional } = {}) {
+    const schema = {};
+    table.columns
+        .filter((column) => !exclude.includes(column.name))
+        .forEach((column) => {
+        const columnSchema = processColumn(column, { exclude, jsonAsString, defaultValueOptional });
+        if (columnSchema)
+            schema[column.name] = columnSchema;
+    });
+    return schema;
+}
+exports.joiSchema = joiSchema;
+function processColumn(column, options) {
+    if (skipKey.indexOf(column.name) > -1 || !types[column.type.name])
+        return undefined;
+    if (column.isSerial)
+        return processInteger(column);
+    let columnSchema = "";
+    const method = types[column.type.name];
+    if (typeof method === "function") {
+        columnSchema = method(column, options);
+    }
+    if (column.notNull && (!options.defaultValueOptional || column.default === null)) {
+        columnSchema += ".required()";
+    }
+    return columnSchema;
+}
+function processInteger(column) {
+    // const limit = Math.pow(2, column.precision) / 2;
+    if (column.precision) {
+        const limit = 2 ** column.precision / 2;
+        return `Joi.number().integer().min(${column.isSerial ? 1 : -limit}).max(${limit - 1})`;
+    }
+    return `Joi.number().integer()`;
+}
+function processString(column) {
+    return `Joi.string().max(${column.length})`;
+}
+function processText(column) {
+    let property = "Joi.string()";
+    if (column.length) {
+        property += `.max(${column.length})`;
+    }
+    return property;
+}
+function processDate(column) {
+    return "Joi.date()";
+}
+function processTime(column) {
+    return `Joi.string().regex(/${timeRegex}/, "time")`;
+}
+function processTimestamp(column) {
+    return "Joi.string().isoDate()";
+}
+function processNumeric(column) {
+    var _a;
+    if (column.precision) {
+        const limit = 10 ** (column.precision - ((_a = column.scale) !== null && _a !== void 0 ? _a : 0)) - 1;
+        return `Joi.number().min(${-limit}).max(${limit})`;
+    }
+    return `Joi.number()`;
+}
+function processBoolean(column) {
+    return `Joi.boolean()`;
+}
+function processArray(column) {
+    const type = types[column.type.name](column);
+    return "Joi.array().items(".repeat(column.arrayDimension) + type + ")".repeat(column.arrayDimension);
+}
+function processIP(column) {
+    return `Joi.string().ip()`;
+}
+function processJSON(column, options) {
+    // TODO: Consider custom JOI class
+    return options.jsonAsString ? "Joi.string()" : "Joi.object()";
+}
+function processUUID(column) {
+    return `Joi.string().uuid()`;
+}
+module.exports.process = process;
+//# sourceMappingURL=joi-schema.js.map

@@ -1,0 +1,34 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
+const pg_generator_1 = require("pg-generator");
+const get_nunjucks_1 = require("../utils/get-nunjucks");
+const context_1 = __importDefault(require("./context"));
+const nunjucks = get_nunjucks_1.getNunjucks(__dirname);
+/**
+ * Example `pg-generator` generator which creates sequelize models.
+ */
+class Md extends pg_generator_1.PgGenerator {
+    /**
+     * Returns a context data including sequelize data types
+     * and some other examples.
+     */
+    context() {
+        return context_1.default;
+    }
+    /**
+     * Render method which uses a nunjucks template. You can use any template engine.
+     * `pg-generator` is template engine agnostic.
+     */
+    async render(templatePath, context) {
+        const md = nunjucks.render(templatePath, context);
+        // Convert schemas into SVG graphics using `mermaid` (https://mermaid-js.github.io/mermaid/#/)
+        // "pg-generator" exports some converters.
+        return pg_generator_1.converters.mermaidToSVG(md);
+    }
+}
+exports.default = Md;
+//# sourceMappingURL=index.js.map

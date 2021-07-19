@@ -90,6 +90,15 @@
       "mobile": "00989353466621",
       "role": 2,
       "synced": false
+    },
+    {
+      "id": 28,
+      "mobile": "09353466623",
+      "name": "فرشید",
+      "family": "مهاجر",
+      "national_id": "0011695791",
+      "role": 2,
+      "synced": true
     }
   ],
   "v1_install_teachers_upload": {},

@@ -1,11 +1,66 @@
 {
-  "name": "learniba-server",
+  "name": "learniba-dynamic-server",
   "version": "0.0.1",
-  "description": "Learniba Dynamic Client Server",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "type": "module",
+  "main": "src/app.js",
+  "directories": {
+    "public": "public",
+    "src": "src"
   },
-  "author": "Learniba TM",
-  "license": "ISC"
+  "scripts": {
+    "start": "nodemon ./src/app/app.js",
+    "start2": "webpack --watch | nodemon public/app/app.js",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "test": "NODE_ENV=test mocha --recursive test",
+    "test:coverage": "nyc npm test",
+    "test:unit": "mocha --recursive test/middleware test/models test/routes",
+    "test:integration": "mocha --recursive test/integration"
+  },
+  "dependencies": {
+    "chance": "^1.1.7",
+    "fastify": "^3.19.1",
+    "gulp": "^4.0.2",
+    "method-override": "^2.3.0",
+    "morgan": "^1.6.1",
+    "mysql": "^2.18.1",
+    "node-pg-crud": "^1.1.1",
+    "passport": "^0.4.1",
+    "passport-oauth2-client-password": "^0.1.2",
+    "pg": "^8.5.1",
+    "pg-generator": "^5.0.0-alpha.9",
+    "pg-generator-example": "^1.0.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "@webpack-cli/generators": "^2.2.0",
+    "chai": "^3.5.0",
+    "chance": "^1.1.7",
+    "debug": "^2.2.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-develop": "^0.4.0",
+    "grunt-sass": "2.0.0",
+    "load-grunt-tasks": "^3.2.0",
+    "nodemon": "latest",
+    "nyc": "^10.0.0",
+    "prettier": "^2.3.2",
+    "request": "^2.60.0",
+    "supertest": "^2.0.0",
+    "time-grunt": "^1.2.1",
+    "webpack": "^4.20.2",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-middleware": "^5.0.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0",
+    "workbox-webpack-plugin": "^6.1.5"
+  }
 }
