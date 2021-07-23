@@ -1,6 +1,7 @@
 
 
-import UsersController from "../../../Controllers/Install/Users/UsersController.js";
+import UsersController from "../../../Controllers/Install/UsersController.js";
+import TeachersController from "../../../Controllers/Install/TeachersController.js";
 
 const rout_map = {
   "/v1/*": "/v1/$1",
@@ -34,4 +35,5 @@ const rout_map = {
 }
 export default function (fastify,db) {
   UsersController(fastify,db);
+  TeachersController(fastify,db)
 }

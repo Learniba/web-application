@@ -1,20 +1,50 @@
-import sequelize from "../helpers/sequelize.js"; // Provide your own sequelize instance.
+/**
+ * @Author : amintado@gmail.com | Learniba TM
+ * @Date: 2021
+ *
+ **/
+
+import sequelize from "../../helpers/DBSequelize.js"; // Provide your own sequelize instance.
 import DataTypes from "sequelize";
-export default sequelize.define(
+import Model from "sequelize/lib/model.js";
+export const BaseModuleSchoolScheduleAttributes = {
+  id: "id",
+  created_at: "created_at",
+  created_by: "created_by",
+  updated_at: "updated_at",
+  updated_by: "updated_by",
+  starttime: "starttime",
+  endtime: "endtime",
+  teacher_id: "teacher_id",
+  assistant_id: "assistant_id",
+  subject_id: "subject_id",
+  class_id: "class_id",
+  reference_index_id: "reference_index_id",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  deletedAt: "deletedAt",
+};
+
+/**
+ * This is Base model
+ * @module
+ * @return {Promise<Model|BaseModuleUserAttributes>}
+ */
+export const BaseModuleSchoolSchedule = sequelize.define(
   "ModuleSchoolSchedule",
   {
     id: {
       field: "id",
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: "true",
+      primaryKey: true,
 
-      autoIncrement: "true",
+      autoIncrement: true,
     },
 
     created_at: {
       field: "created_at",
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(6),
       allowNull: true,
     },
 
@@ -26,7 +56,7 @@ export default sequelize.define(
 
     updated_at: {
       field: "updated_at",
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(6),
       allowNull: true,
     },
 
@@ -38,13 +68,13 @@ export default sequelize.define(
 
     starttime: {
       field: "starttime",
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(6),
       allowNull: true,
     },
 
     endtime: {
       field: "endtime",
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(6),
       allowNull: true,
     },
 
@@ -77,9 +107,29 @@ export default sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
+    createdAt: {
+      field: "createdAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
+
+    updatedAt: {
+      field: "updatedAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
+
+    deletedAt: {
+      field: "deletedAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
   },
   {
     tableName: "module_school_schedule",
+    timestamps: true,
+    paranoid: true, //soft delete and restore is active
   }
 );
 

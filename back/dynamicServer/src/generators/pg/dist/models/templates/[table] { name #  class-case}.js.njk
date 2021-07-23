@@ -9,8 +9,9 @@
 -#}
 
 
-import Base{{ table | dboClassName(addTableName)  }} from "./base/Base{{ table | dboClassName(addTableName)  }}.js";
+import {Base{{ table | dboClassName(addTableName)  }},Base{{ table | dboClassName(addTableName)  }}Attributes} from "./base/Base{{ table | dboClassName(addTableName)  }}.js";
 export const {{ table | dboClassName(addTableName)  }}Const = {
 
 }
+export const {{ table | dboClassName(addTableName)  }}Attributes = Base{{ table | dboClassName(addTableName)  }}Attributes;
 export let {{ table | dboClassName(addTableName)  }} = Base{{ table | dboClassName(addTableName)  }};

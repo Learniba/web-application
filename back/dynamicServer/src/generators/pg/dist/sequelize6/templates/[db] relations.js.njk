@@ -7,59 +7,84 @@
 {%- for table in db.schemas.get('development').tables %}
 {%- if table.relations.length > 0 %}
 {# Decide whether to include schema name by reading `addSchemaName` boolean value from extra context. Apply `dboClassName` filter -#}
-import {{ table | dboClassName(addTableName) }} from "./{{ table.name | dashCase }}";
+import { Base{{ table | dboClassName(addTableName) }} } from "./Base{{ table.name | classCase }}.js";
 {%- endif %}
 {%- endfor %}
-
+import {Sequelize} from "sequelize";
 
 /**
  * Builds all relations between models. It is provided as a function to prevent circular references during require.
  */
-export default function buildRelations() {
-  {#-
-    `pg-generator` supports composite key generation. However, as of this example is created,
-    sequelize does not support composite keys. For sequlize, we assume foreign keys are not composite keys.
-    See: https://github.com/sequelize/sequelize/issues/311
+export default async function buildRelations() {
+  if(typeof Sequelize.prototype.relationsExecuted==="undefined"){
+    Sequelize.prototype.relationsExecuted=true;
+      {#-
+        `pg-generator` supports composite key generation. However, as of this example is created,
+        sequelize does not support composite keys. For sequlize, we assume foreign keys are not composite keys.
+        See: https://github.com/sequelize/sequelize/issues/311
 
-    We loop through tables of "db". See: https://www.pg-structure.com/nav.02.api/classes/db.html#tables
-  #}
-  {%- for table in db.tables %}
+        We loop through tables of "db". See: https://www.pg-structure.com/nav.02.api/classes/db.html#tables
+      #}
+      {%- for table in db.tables %}
 
-  {#- Loop through "one to many" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#o2mrelations #}
-  {%- for relation in table.o2mRelations %}
+      {#- Loop through "one to many" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#o2mrelations #}
+      {%- for relation in table.o2mRelations %}
 
-  {#- "dboClassName" is a helper filter provided by "pg-generator" to create class names from db object names. #}
-  {{ table | dboClassName(addSchemaName) }}.hasMany({{ relation.targetTable | dboClassName(addSchemaName) }}, {
-    foreignKey: {{ relation.foreignKey.columns[0].name | quote }},
-    sourceKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
-    as: {{ relation.name | quote }},
-    onDelete: {{ relation.foreignKey.onDelete | quote }},
-    onUpdate: {{ relation.foreignKey.onUpdate | quote }},
-  });
-  {%- endfor %}
+      {#- "dboClassName" is a helper filter provided by "pg-generator" to create class names from db object names. #}
+      await Base{{ table | dboClassName(addTableName) }}.hasMany(Base{{ relation.targetTable | dboClassName(addTableName) }}, {
+        foreignKey: {{ relation.foreignKey.columns[0].name | quote }},
+        sourceKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
+        //as: {{ relation.name | quote }},
+        onDelete: {{ relation.foreignKey.onDelete | quote }},
+        onUpdate: {{ relation.foreignKey.onUpdate | quote }},
+      });
+      {%- endfor %}
 
-  {#- Loop through "many to one" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#m2orelations #}
-  {%- for relation in table.m2oRelations %}
+      {#- Loop through "many to one" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#m2orelations #}
+      {%- for relation in table.m2oRelations %}
 
-  {{ table | dboClassName(addTableName) }}.belongsTo({{ relation.targetTable | dboClassName(addTableName) }}, {
-    foreignKey: {{ relation.foreignKey.columns[0].name | quote }},
-    targetKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
-    as: {{ relation.name | quote }},
-    onDelete: {{ relation.foreignKey.onDelete | quote }},
-    onUpdate: {{ relation.foreignKey.onUpdate | quote }},
-  });
-  {%- endfor %}
+      await Base{{ table | dboClassName(addTableName) }}.belongsTo(Base{{ relation.targetTable | dboClassName(addTableName) }}, {
+        foreignKey: {{ relation.foreignKey.columns[0].name | quote }},
+        targetKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
+        //as: {{ relation.name | quote }},
+        onDelete: {{ relation.foreignKey.onDelete | quote }},
+        onUpdate: {{ relation.foreignKey.onUpdate | quote }},
+      });
+      {%- endfor %}
 
-  {#- Loop through "many to many" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#m2mrelations #}
-  {%- for relation in table.m2mRelations %}
+      {#- Loop through "many to many" relations of the table. See: https://www.pg-structure.com/nav.02.api/classes/table.html#m2mrelations #}
+      {%- for relation in table.m2mRelations %}
 
-  {{ table | dboClassName(addSchemaName) }}.belongsToMany({{ relation.targetTable | dboClassName(addSchemaName) }}, {
-    through: {{ relation.joinTable | dboClassName(addSchemaName) | quote }},
-    otherKey: {{ relation.foreignKey.columns[0].name | quote }},
-    sourceKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
-    targetKey: {{ relation.targetForeignKey.referencedColumns[0].name | quote }},
-    as: {{ relation.name | quote }},
-  });
-  {%- endfor %}
-  {%- endfor %}
+
+      {%- if(table.name===relation.joinTable.name) %}
+                    //await Base{{ table | dboClassName(addTableName) }}.belongsToMany(Base{{ relation.targetTable | dboClassName(addTableName) }}, {
+                    //  through: Base{{ relation.joinTable | dboClassName(addTableName)  }},
+                    //  foreignKey: {{ relation.foreignKey.referencedColumns[0].name | quote }},
+                    //  otherKey: {{ relation.foreignKey.columns[0].name | quote }},
+                    //  targetKey: {{ relation.targetForeignKey.referencedColumns[0].name | quote }},
+                      {%- if(table.name===relation.targetTable.name) %}
+                    //    as: "{{ relation.name  }}",
+                      {%- endif %}
+                    //});
+      {%- else %}
+                  /** {{ relation.foreignKey.columns.length }} **/
+                  /** {{ relation.targetForeignKey.referencedColumns.length }} **/
+
+                    await Base{{ table | dboClassName(addTableName) }}.belongsToMany(Base{{ relation.targetTable | dboClassName(addTableName) }}, {
+                      through: Base{{ relation.joinTable | dboClassName(addTableName)  }},
+                      foreignKey: {{ relation.foreignKey.columns[0].name | quote }},
+                      otherKey: {{ relation.targetForeignKey.columns[0].name | quote }},
+                      //targetKey: {{ relation.targetForeignKey.referencedColumns[0].name | quote }},dom
+                      {%- if(table.name===relation.targetTable.name) %}
+                        as: "{{ relation.name  }}",
+                      {%- endif %}
+                    });
+
+
+      {%- endif %}
+
+
+      {%- endfor %}
+      {%- endfor %}
+  }
 }

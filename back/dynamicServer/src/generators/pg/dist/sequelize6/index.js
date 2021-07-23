@@ -8,9 +8,12 @@ const pg_generator_1 = require("pg-generator");
 const get_nunjucks_1 = require("../utils/get-nunjucks");
 const context_1 = __importDefault(require("./context"));
 const nunjucks = get_nunjucks_1.getNunjucks(__dirname);
+const chance=require("chance");
+
 /**
  * Example `pg-generator` generator which creates sequelize models.
  */
+
 class Sequelize6 extends pg_generator_1.PgGenerator {
     /**
      * Returns a context data including sequelize data types

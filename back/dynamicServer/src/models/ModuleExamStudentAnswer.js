@@ -1,3 +1,8 @@
-import BaseModuleExamStudentAnswer from "./base/BaseModuleExamStudentAnswer.js";
+import {
+  BaseModuleExamStudentAnswer,
+  BaseModuleExamStudentAnswerAttributes,
+} from "./base/BaseModuleExamStudentAnswer.js";
 export const ModuleExamStudentAnswerConst = {};
+export const ModuleExamStudentAnswerAttributes =
+  BaseModuleExamStudentAnswerAttributes;
 export let ModuleExamStudentAnswer = BaseModuleExamStudentAnswer;

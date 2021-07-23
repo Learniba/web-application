@@ -1,4 +1,4 @@
-{
+export default {
   "levels": [
     {
       "id": 1,

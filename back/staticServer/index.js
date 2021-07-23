@@ -1,7 +1,8 @@
 import jsonServer from 'json-server';
 const server = jsonServer.create();
-const router = jsonServer.router('./db.json');
-import routes from "./routes.json";
+import db from './db.js';
+const router = jsonServer.router(db);
+import routes from "./routes.js";
 const middlewares = jsonServer.defaults();
 import chance from "chance"
 var c=chance.Chance();
@@ -14,6 +15,7 @@ server.use(jsonServer.bodyParser);
 server.use(jsonServer.rewriter(routes));
 
 import InstallRouters from "./Routes/Install.js";
+
 InstallRouters(server,c);
 
 server.use(middlewares);

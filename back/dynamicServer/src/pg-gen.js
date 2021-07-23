@@ -1,6 +1,11 @@
 import {generate} from "pg-generator";
 import chance from "chance"
+import config from "./config/config.js"
 
+if(config.db.force_sync){
+console.log('\x1b[33m%s\x1b[0m','(force_sync) is enable in "./config/config.js"-> db  please disable it first and try again')
+  throw '';
+}
 
 var c = chance.Chance();
 const o2m = (r) => {
@@ -72,7 +77,13 @@ await generate(
 );
 console.info('Models Created')
 
-console.info('All Done')
+console.info('All Done');
+
+
+console.log('\x1b[36m%s\x1b[0m', 'Please Node: For prevent replace your model files with generated version,we created two file for every table.');
+console.log('\x1b[36m%s\x1b[0m', 'Master model file is under "./model/base/" directory.please dont touch this files,because this files will be replaced in every generation');
+console.log('\x1b[36m%s\x1b[0m', 'Slave version of files that extended from Master model will generated under "./model/temp" directory. you can move this generated files to "./model" directory if need');
+console.log('\x1b[36m%s\x1b[7m','If you dont need slave files, you must delete "./model/temp" directory')
 
 
 

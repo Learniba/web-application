@@ -7,32 +7,53 @@
   to markdown to create visual schemas using text. See: https://mermaid-js.github.io/mermaid/#/
   See details of "table" here: https://www.pg-structure.com/nav.02.api/classes/table.html
 -#}
+/**
+* @Author : amintado@gmail.com | Learniba TM
+* @Date: 2021
+*
+**/
 
-
-import sequelize from "{{ (sequelize or "../helpers/sequelize.js") }}"; // Provide your own sequelize instance.
+import sequelize from "{{ (sequelize or "../../helpers/DBSequelize.js") }}"; // Provide your own sequelize instance.
 import DataTypes from "sequelize";
+import Model from "sequelize/lib/model.js"
 {#
   Decide whether to include schema name by reading `addSchemaName` boolean value from extra context.
   Apply `dboClassName` filter provided by "pg-generator". See "src/get-nunjucks" for an example
   of adding all filters provided by "pg-generator" to nunjucks templating engine.
 -#}
-export default sequelize.define(
-  {{ table | dboClassName(addTableName) | quote }},
-  {
-    {#- Below is an example of partial usage of nunjucks templating engine. -#}
-    {%- include "./partials/columns.njk" -%}
-  },
-  {
-    tableName: {{ table.name | quote }},
-    {%- if table.commentWithoutData %}
-    comment: {{ table.commentWithoutData | quote }},
-    {%- endif %}
 
-    {#- Add extra table details from extra context. #}
-    {%- for key, value in extra %}
-    {{ key }}: {{ value | stringify }},
-    {%- endfor %}
-  });
+
+export const Base{{ table | dboClassName(addTableName) }}Attributes={
+{% for column in table.columns -%}
+  {{ column.name }}:{{ column.name | quote }},
+{% endfor %}
+}
+
+
+/**
+ * This is Base model
+ * @module
+ * @return {Promise<Model|BaseModuleUserAttributes>}
+ */
+export const Base{{ table | dboClassName(addTableName)  }} = sequelize.define(
+                           {{ table | dboClassName(addTableName) | quote }},
+                           {
+                             {#- Below is an example of partial usage of nunjucks templating engine. -#}
+                             {%- include "./partials/columns.njk" -%}
+                           },
+                           {
+                             tableName: {{ table.name | quote }},
+                             timestamps: true,
+                             paranoid: true,//soft delete and restore is active
+                             {%- if table.commentWithoutData %}
+                             comment: {{ table.commentWithoutData | quote }},
+                             {%- endif %}
+
+                             {#- Add extra table details from extra context. #}
+                             {%- for key, value in extra %}
+                             {{ key }}: {{ value | stringify }},
+                             {%- endfor %}
+                           });
 
 
 

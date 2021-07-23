@@ -12,10 +12,16 @@
     field: {{ column.name  | quote }},
     {# Use `dboColumnTypeModifier` filter to add type length, precision and scale. -#}
     type: DataTypes{{ sequelizeTypes[column.type.name] }}{{ column | dboColumnTypeModifier }},
-    allowNull: {{ not column.notNull }},
+
+
+    {%- if column.name==='createdAt' or column.name==='updatedAt' %}
+      allowNull: true,
+    {%- else %}
+      allowNull: {{ not column.notNull }},
+    {%- endif %}
 
     {%- if column.isPrimaryKey %}
-    primaryKey: "true",
+    primaryKey: true,
     {%- endif %}
 
     {%- if column.uniqueIndexesNoPk[0].length > 0 %}
@@ -31,7 +37,7 @@
     {%- endif %}
 
     {%- if column.isSerial %}
-    autoIncrement: "true",
+      autoIncrement: true,
     {%- endif %}
 
     {%- if column.commentWithoutData %}

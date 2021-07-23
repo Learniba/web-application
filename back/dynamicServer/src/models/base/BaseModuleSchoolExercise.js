@@ -1,15 +1,38 @@
-import sequelize from "../helpers/sequelize.js"; // Provide your own sequelize instance.
+/**
+ * @Author : amintado@gmail.com | Learniba TM
+ * @Date: 2021
+ *
+ **/
+
+import sequelize from "../../helpers/DBSequelize.js"; // Provide your own sequelize instance.
 import DataTypes from "sequelize";
-export default sequelize.define(
+import Model from "sequelize/lib/model.js";
+export const BaseModuleSchoolExerciseAttributes = {
+  id: "id",
+  question_id: "question_id",
+  schedule_id: "schedule_id",
+  exercise_type: "exercise_type",
+  name: "name",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  deletedAt: "deletedAt",
+};
+
+/**
+ * This is Base model
+ * @module
+ * @return {Promise<Model|BaseModuleUserAttributes>}
+ */
+export const BaseModuleSchoolExercise = sequelize.define(
   "ModuleSchoolExercise",
   {
     id: {
       field: "id",
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: "true",
+      primaryKey: true,
 
-      autoIncrement: "true",
+      autoIncrement: true,
     },
 
     question_id: {
@@ -35,9 +58,29 @@ export default sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+
+    createdAt: {
+      field: "createdAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
+
+    updatedAt: {
+      field: "updatedAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
+
+    deletedAt: {
+      field: "deletedAt",
+      type: DataTypes.DATE(6),
+      allowNull: true,
+    },
   },
   {
     tableName: "module_school_exercise",
+    timestamps: true,
+    paranoid: true, //soft delete and restore is active
   }
 );
 

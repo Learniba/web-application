@@ -1,4 +1,4 @@
-{
+export default {
   "/v1/*": "/v1/$1",
   "/v1/public/*": "/$1",
   "/v1/install/users": "/v1_install_users",

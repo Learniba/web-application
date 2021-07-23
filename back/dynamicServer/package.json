@@ -9,21 +9,22 @@
     "src": "src"
   },
   "scripts": {
-    "start": "nodemon ./src/app/app.js",
-    "start2": "webpack --watch | nodemon public/app/app.js",
-    "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch",
-    "serve": "webpack serve",
-    "test": "NODE_ENV=test mocha --recursive test",
-    "test:coverage": "nyc npm test",
-    "test:unit": "mocha --recursive test/middleware test/models test/routes",
-    "test:integration": "mocha --recursive test/integration"
+    "start": "node_modules/.bin/nodemon ./src/server.js",
+    "start2": "node_modules/.bin/webpack --watch | nodemon public/app/app.js",
+    "build": "node_modules/.bin/webpack --mode=production --node-env=production",
+    "build:dev": "node_modules/.bin/webpack --mode=development",
+    "build:prod": "node_modules/.bin/webpack --mode=production --node-env=production",
+    "watch": "node_modules/.bin/webpack --watch",
+    "serve": "node_modules/.bin/webpack serve",
+    "test": "NODE_ENV=test  node_modules/.bin/tap",
+    "test:coverage": "node_modules/.bin/test --coverage-report=lcov  ",
+    "test:unit": "node_modules/.bin/mocha --recursive test/middleware test/models test/routes",
+    "test:integration": "node_modules/.bin/mocha --recursive test/integration"
   },
   "dependencies": {
     "chance": "^1.1.7",
     "fastify": "^3.19.1",
+    "fastify-multipart": "^4.0.7",
     "gulp": "^4.0.2",
     "method-override": "^2.3.0",
     "morgan": "^1.6.1",
@@ -35,7 +36,9 @@
     "pg-generator": "^5.0.0-alpha.9",
     "pg-generator-example": "^1.0.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^6.6.5"
+    "pino-pretty": "^5.1.2",
+    "sequelize": "^6.6.5",
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@webpack-cli/generators": "^2.2.0",
@@ -51,7 +54,9 @@
     "nyc": "^10.0.0",
     "prettier": "^2.3.2",
     "request": "^2.60.0",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^2.0.0",
+    "tap": "^15.0.9",
     "time-grunt": "^1.2.1",
     "webpack": "^4.20.2",
     "webpack-bundle-analyzer": "^4.4.2",

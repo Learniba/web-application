@@ -1,3 +1,8 @@
-import BaseModuleLearnibaQuestion from "./base/BaseModuleLearnibaQuestion.js";
+import {
+  BaseModuleLearnibaQuestion,
+  BaseModuleLearnibaQuestionAttributes,
+} from "./base/BaseModuleLearnibaQuestion.js";
 export const ModuleLearnibaQuestionConst = {};
+export const ModuleLearnibaQuestionAttributes =
+  BaseModuleLearnibaQuestionAttributes;
 export let ModuleLearnibaQuestion = BaseModuleLearnibaQuestion;
