@@ -46,6 +46,7 @@ export const BaseModuleUser = sequelize.define(
       field: "username",
       type: DataTypes.STRING(255),
       allowNull: false,
+      unique:true
     },
 
     first_name: {

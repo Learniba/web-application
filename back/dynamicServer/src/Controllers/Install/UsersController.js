@@ -1,35 +1,121 @@
-import {CreateUpdateUser, ModuleUser, ModuleUserConst} from "../../models/ModuleUser.js";
+import {
+  CreateUpdateUserByID,
+  CreateUpdateUserByNationalCode,
+  ModuleUser,
+  ModuleUserConst
+} from "../../models/ModuleUser.js";
 import chance from "chance";
 import {ModuleAuthUser} from "../../models/ModuleAuthUser.js";
-import buildRelations from "../../models/base/relations.js";
 import {ModuleAuthRole} from "../../models/ModuleAuthRole.js";
-
+import diff_json from "schema-inspector"
 
 export default function (fastify, db) {
   let c = chance.Chance();
-  fastify.post('/v1/install/users', async (request, reply) => {
+  /**
+   * update user with id
+   */
+  fastify.post('/v1/install/user/:id', async (request, reply) => {
+    // < check parameters >
     let body = await request.body;
-    // < find Saved User  >
-    let model = await CreateUpdateUser({
+
+    const validation_data = {
+      type: 'object',
+      properties: {
+        "id": {type: 'number'},
+        "mobile": {type: 'string', minLength: 11, maxLength: 14},
+        "name": {type: 'string', minLength: 3},
+        "family": {type: 'string', minLength: 3},
+        "national_id": {type: 'string', minLength: 10, maxLength: 10},
+        "role": {type: 'number'}
+      }
+
+    };
+    let validation_result = await diff_json.validate(validation_data, body);
+    if (!validation_result.valid) {
+      reply.code(400).send(validation_result.format());
+      return;
+    }
+    // </ check parameters >
+
+
+    // < Create Or Update Exist User >
+    let model = await CreateUpdateUserByID({
       id: body.id,
       username: body.national_id,
       first_name: body.name,
       last_name: body.family,
       mobile: body.mobile,
       status: ModuleUserConst.STATUS_ACTIVE,
-      role: body.role
+      role: body.role,
+      synced: {optional: true, type: 'boolean'}
     });
-    if (model.status){
+    // </ Create Or Update Exist User >
+
+    if (model.status) {
       return {
-        status:true,
-        error:model.errors,
-        was_new:model.isNew
+        status: true,
+        error: model.errors,
+        was_new: model.isNew
       }
-    }else{
+    } else {
       return {
-        status:false,
-        error:model.errors,
-        was_new:model.isNew
+        status: false,
+        error: model.errors,
+        was_new: model.isNew
+      }
+    }
+  })
+
+  /**
+   * add or update user with username (national id)
+   */
+  fastify.post('/v1/install/users', async (request, reply) => {
+    // < check parameters >
+    let body = await request.body;
+
+    const validation_data = {
+      type: 'object',
+      properties: {
+        "id": {type: 'number'},
+        "mobile": {type: 'string', minLength: 11, maxLength: 14},
+        "name": {type: 'string', minLength: 3},
+        "family": {type: 'string', minLength: 3},
+        "national_id": {type: 'string', minLength: 10, maxLength: 10},
+        "role": {type: 'number'}
+      }
+
+    };
+    let validation_result = await diff_json.validate(validation_data, body);
+    if (!validation_result.valid) {
+      reply.code(400).send(validation_result.format());
+      return;
+    }
+    // </ check parameters >
+
+    // < Create Or Update Exist User >
+    let model = await CreateUpdateUserByNationalCode({
+      id: body.id,
+      username: body.national_id,
+      first_name: body.name,
+      last_name: body.family,
+      mobile: body.mobile,
+      status: ModuleUserConst.STATUS_ACTIVE,
+      role: body.role,
+      synced: {optional: true, type: 'boolean'}
+    });
+    // </ Create Or Update Exist User >
+
+    if (model.status) {
+      return {
+        status: true,
+        error: model.errors,
+        was_new: model.isNew
+      }
+    } else {
+      return {
+        status: false,
+        error: model.errors,
+        was_new: model.isNew
       }
     }
   });

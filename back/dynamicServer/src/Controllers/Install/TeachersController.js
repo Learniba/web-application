@@ -1,6 +1,6 @@
 import {CreateUpdateTeacher, ModuleSchoolTeacher, ModuleSchoolTeacherConst} from "../../models/ModuleSchoolTeacher.js";
 import chance from "chance";
-import {CreateUpdateUser, ModuleUser} from "../../models/ModuleUser.js";
+import { ModuleUser} from "../../models/ModuleUser.js";
 import fs from "fs"
 import util from "util"
 import path from "path"

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "chance": "^1.1.7",
+    "diff": "^5.0.0",
     "fastify": "^3.19.1",
     "fastify-multipart": "^4.0.7",
     "gulp": "^4.0.2",
@@ -37,6 +38,7 @@
     "pg-generator-example": "^1.0.0",
     "pg-hstore": "^2.3.2",
     "pino-pretty": "^5.1.2",
+    "schema-inspector": "^2.0.1",
     "sequelize": "^6.6.5",
     "xlsx": "^0.17.0"
   },

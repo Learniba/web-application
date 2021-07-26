@@ -1,5 +1,5 @@
 import {BaseModuleSchoolTeacher, BaseModuleSchoolTeacherAttributes} from "./base/BaseModuleSchoolTeacher.js";
-import {CreateUpdateUser, ModuleUser, ModuleUserConst} from "./ModuleUser.js";
+import {CreateUpdateUserByNationalCode, ModuleUser, ModuleUserConst} from "./ModuleUser.js";
 import Model from "sequelize/lib/model.js"
 import Variables from "../helpers/Variables.js";
 import {Sequelize} from "sequelize";
@@ -66,7 +66,7 @@ export const ModuleSchoolTeacherAttributes = BaseModuleSchoolTeacherAttributes;
  */
 export async function CreateUpdateTeacher(data) {
   let errors;
-  let user = await CreateUpdateUser(data);
+  let user = await CreateUpdateUserByNationalCode(data);
   if (user.status && user.isNew) {
     let teacherTable = new ModuleSchoolTeacher({
       teacher_id: user.model.id
