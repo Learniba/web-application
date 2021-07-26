@@ -1,3 +1,12 @@
+/*
+ *
+ *  * Copyright (c) 2021. Learniba Project, Interactive Education Platform
+ *  * Programmed By: YiiMan amintado@gmail.com 09353466620
+ *  * Author: Learniba TM
+ *  *
+ *
+ */
+
 import path from 'path';
 const rootPath = path.normalize( '/..');
 const env = process.env.NODE_ENV || 'development';

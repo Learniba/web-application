@@ -1,3 +1,12 @@
+/*
+ *
+ *  * Copyright (c) 2021. Learniba Project, Interactive Education Platform
+ *  * Programmed By: YiiMan amintado@gmail.com 09353466620
+ *  * Author: Learniba TM
+ *  *
+ *
+ */
+
 import {
   CreateUpdateUserByID,
   CreateUpdateUserByNationalCode,

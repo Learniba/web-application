@@ -1,3 +1,12 @@
+/*
+ *
+ *  * Copyright (c) 2021. Learniba Project, Interactive Education Platform
+ *  * Programmed By: YiiMan amintado@gmail.com 09353466620
+ *  * Author: Learniba TM
+ *  *
+ *
+ */
+
 import {BaseModuleUser, BaseModuleUserAttributes} from "./base/BaseModuleUser.js";
 import Variables from "../helpers/Variables.js";
 import {ModuleAuthRole} from "./ModuleAuthRole.js";
