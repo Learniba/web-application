@@ -133,11 +133,14 @@ export async function CreateUpdateUserByID(data) {
   });
   try {
     await model[0].validate();
+
   } catch (error) {
     return {status: false, errors: error.errors,isNew:null};
   }
   isNewRecord = model[0].isNewRecord;
-
+  if (isNewRecord){
+    model[0].setDataValue('id',null);
+  }
   await model[0].save();
   return {status: true, model: model[0],errors:null, isNew: isNewRecord};
 }

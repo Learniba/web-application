@@ -17,7 +17,7 @@ const config = {
       db_user: 'postgres',
       db_password: '',
       db_port: 5432,
-      log:true
+      log:(l)=>{console.log(l)}
     },
     host:'localhost',
     server:{

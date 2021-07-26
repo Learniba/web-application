@@ -144,12 +144,12 @@ export default async (app, tap) => {
       method: 'GET',
       url: '/v1/install/users'
     })
-    temp=await response.body;
-
+    let tmp;
+    tmp=await response.body;
     // </ get list of saved users >
     response = await app.inject({
       method: 'POST',
-      url: '/v1/install/user/'.temp[0].id,
+      url: '/v1/install/user/'+tmp[0].id,
       payload: {
         "id": c.integer({min: 1, max: 9999}),
         "mobile": c.integer({min: 11111111111, max: 99999999999}).toString(),
@@ -170,7 +170,7 @@ export default async (app, tap) => {
     t.test('( test json validation on server )', async tt => {
       response=await app.inject({
         method: 'POST',
-        url: '/v1/install/user/'.temp[0].id,
+        url: '/v1/install/user/'+tmp[0].id,
         payload: {
           "id": c.integer({min: 1, max: 9999}).toString(),
           "mobile": c.integer({min: 11111111111, max: 99999999999}).toString(),
@@ -185,7 +185,7 @@ export default async (app, tap) => {
 
       response=await app.inject({
         method: 'POST',
-        url: '/v1/install/user/'.temp[0].id,
+        url: '/v1/install/user/'+tmp[0].id,
         payload: {
           "id": c.integer({min: 1, max: 9999}),
           "mobile": c.integer({min: 11111111111, max: 99999999999}),
@@ -200,7 +200,7 @@ export default async (app, tap) => {
 
       response=await app.inject({
         method: 'POST',
-        url: '/v1/install/user/'.temp[0].id,
+        url: '/v1/install/user/'+tmp[0].id,
         payload: {
           "id": c.integer({min: 1, max: 9999}),
           "mobile": c.integer({min: 11111111111, max: 99999999999}).toString(),
@@ -215,7 +215,7 @@ export default async (app, tap) => {
 
       response=await app.inject({
         method: 'POST',
-        url: '/v1/install/user/'.temp[0].id,
+        url: '/v1/install/user/'+tmp[0].id,
         payload: {
           "id": c.integer({min: 1, max: 9999}),
           "mobile": c.integer({min: 11111111111, max: 99999999999}).toString(),
@@ -230,7 +230,7 @@ export default async (app, tap) => {
 
       response=await app.inject({
         method: 'POST',
-        url: '/v1/install/user/'.temp[0].id,
+        url: '/v1/install/user/'+tmp[0].id,
         payload: {
           "id": c.integer({min: 1, max: 9999}),
           "mobile": c.integer({min: 1111111111, max: 9999999999}).toString(),
@@ -254,7 +254,7 @@ export default async (app, tap) => {
 
     response = await app.inject({
       method: 'POST',
-      url: '/v1/install/user/'.temp[0].id,
+      url: '/v1/install/user/'+tmp[0].id,
       payload: {
         "id": c.integer({min: 1, max: 9999}),
         "mobile": c.integer({min: 11111111111, max: 99999999999}).toString(),
@@ -282,7 +282,7 @@ export default async (app, tap) => {
     })
 
     t.equal(response.statusCode, 200, 'returns a status code of 200');
-    t.equal(JSON.parse(response.body).length, 2, 'users saved correctly');
+    t.equal(JSON.parse(response.body).length>2,true , 'users saved correctly');
 
 
   })

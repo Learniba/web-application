@@ -172,7 +172,7 @@ export default function (fastify, db) {
     const params = req.params;
     let model = await ModuleUser.findOne({where: {id: params.id}});
     if (model) {
-      model.destroy();
+      let deleted=await model.destroy();
     }
     return {status: true}
   })
