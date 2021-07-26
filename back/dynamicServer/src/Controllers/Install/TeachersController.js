@@ -1,3 +1,12 @@
+/*
+ *
+ *  * Copyright (c) 2021. Learniba Project, Interactive Education Platform
+ *  * Programmed By: YiiMan amintado@gmail.com 09353466620
+ *  * Author: Learniba TM
+ *  *
+ *
+ */
+
 import {CreateUpdateTeacher, ModuleSchoolTeacher, ModuleSchoolTeacherConst} from "../../models/ModuleSchoolTeacher.js";
 import chance from "chance";
 import { ModuleUser} from "../../models/ModuleUser.js";
@@ -6,7 +15,7 @@ import util from "util"
 import path from "path"
 import { pipeline } from 'stream'
 const pump = util.promisify(pipeline)
-
+//this is test comment
 export default function (fastify, db) {
   let c = chance.Chance();
   /**
