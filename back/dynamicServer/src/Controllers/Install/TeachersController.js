@@ -6,14 +6,17 @@
  *  *
  *
  */
-
-import {CreateUpdateTeacher, ModuleSchoolTeacher, ModuleSchoolTeacherConst} from "../../models/ModuleSchoolTeacher.js";
+import {CreateUpdateTeacher, ModuleSchoolTeacher,ParseTeachersExcel, ModuleSchoolTeacherConst} from "../../models/ModuleSchoolTeacher.js";
 import chance from "chance";
-import { ModuleUser} from "../../models/ModuleUser.js";
+import {ModuleUser} from "../../models/ModuleUser.js";
 import fs from "fs"
 import util from "util"
 import path from "path"
-import { pipeline } from 'stream'
+import {pipeline} from 'stream'
+import ExcelParser from "../../helpers/ExcelParser.js";
+import Variables from "../../helpers/Variables.js";
+import diff_json from "schema-inspector"
+
 const pump = util.promisify(pipeline)
 //this is test comment
 export default function (fastify, db) {
@@ -45,7 +48,7 @@ export default function (fastify, db) {
 
   });
 
-  fastify.get('/v1/install/teachers',async (req, res) => {
+  fastify.get('/v1/install/teachers', async (req, res) => {
     let model;
     model = await ModuleSchoolTeacher.scope(ModuleSchoolTeacherConst.Scopes.Public_users).findAll({
       raw: true
@@ -58,7 +61,7 @@ export default function (fastify, db) {
     return model
   })
 
-  fastify.get('/v1/install/teacher/:id',async (req,res)=>{
+  fastify.get('/v1/install/teacher/:id', async (req, res) => {
     let model;
     model = (await ModuleSchoolTeacher.scope(ModuleSchoolTeacherConst.Scopes.Public_users).findOne({
       where: {
@@ -66,40 +69,27 @@ export default function (fastify, db) {
       }
     })).toJSON();
 
-    if(model ===null){
+    if (model === null) {
       res.callNotFound();
-    }else{
-      model.synced=1;
+    } else {
+      model.synced = 1;
 
     }
     return model
   })
 
-  fastify.post('/v1/install/teachers/upload',async (req,res)=>{
+  fastify.post('/v1/install/teachers/upload', async (req, res) => {
 
     const data = await req.file()
 
-    // data.file // stream
-    // data.fields // other parsed parts
-    // data.fieldname
-    data.filename='./test.xlsx'
-    // data.encoding
-    // data.mimetype
+    data.filename = './test.xlsx'
 
-    // to accumulate the file in memory! Be careful!
-    //
-    // await data.toBuffer() // Buffer
-    //
-    // or
+
 
     await pump(data.file, fs.createWriteStream(data.filename))
 
-    // be careful of permission issues on disk and not overwrite
-    // sensitive files that could cause security risks
+    await ParseTeachersExcel(data.filename)
 
-    // also, consider that if the file stream is not consumed, the promise will never fulfill
-
-
-    return {status:true}
+    return {status: true}
   })
 }
